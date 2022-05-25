@@ -1,0 +1,53 @@
+server:
+  port: 9002
+#  servlet:
+#    context-path: /consumer
+
+
+eureka:
+  instance:
+    # 每间隔2s。选项注册中心发送一次心跳。证明客户端存活
+    lease-renewal-interval-in-seconds: 2
+    # 如果我10s之内没有向注册中心发送心跳，注册中心可以判断我故障，将我剔除
+    lease-expiration-duration-in-seconds: 10
+    # 服务实例以IP作为链接，而不是取机器名
+    prefer-ip-address: true
+    instance-id: consumer-service-9002
+
+  client:
+      service-url:
+        # 注册中心地址
+        defaultZone: http://eureka8761:8761/eureka,http://eureka8762:8762/eureka
+
+spring:
+  application:
+    name: consumer9002
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 21000
+#          strategy: Semaphore
+
+ribbon:
+  ReadTimeout: 6000  # 如果不配置，默认 1s, hystrix 会用该配置和 hystrix.command.default.execution.isolation.timeoutInMilliseconds 比价，谁小谁生效。
+  ConnnectTimeout: 3000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+
+

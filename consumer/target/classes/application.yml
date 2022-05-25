@@ -1,7 +1,7 @@
 server:
   port: 9001
-  servlet:
-    context-path: /consumer
+#  servlet:
+#    context-path: /consumer
 
 
 eureka:
@@ -14,6 +14,39 @@ eureka:
     prefer-ip-address: true
     instance-id: consumer-service-1
 
+  client:
+      service-url:
+        # 注册中心地址
+        defaultZone: http://eureka8761:8761/eureka,http://eureka8762:8762/eureka
+
 spring:
   application:
     name: consumer
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 21000
+#          strategy: Semaphore
+
+ribbon:
+  ReadTimeout: 6000  # 如果不配置，默认 1s, hystrix 会用该配置和 hystrix.command.default.execution.isolation.timeoutInMilliseconds 比价，谁小谁生效。
+  ConnnectTimeout: 3000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+

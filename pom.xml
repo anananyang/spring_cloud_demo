@@ -13,6 +13,9 @@
         <module>consumer</module>
         <module>provider</module>
         <module>common</module>
+        <module>dashboard</module>
+        <module>turbine</module>
+        <module>gateway</module>
     </modules>
 
     <parent>

@@ -18,6 +18,10 @@ public class Result<T> {
         return result;
     }
 
+    public static <T> Result wrapError(String code, String errorMsg) {
+        return wrapError(code, errorMsg, null);
+    }
+
     public static <T> Result wrapError(String code, String errorMsg, T data) {
         Result result = new Result<>();
         result.setSuccess(false);

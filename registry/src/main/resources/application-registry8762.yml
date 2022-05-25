@@ -1,0 +1,13 @@
+server:
+  port: 8762
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 不去服务端检索其他服务信息，因为自己就是服务端。
+    fetch-registry: false
+    # 因为自己就是服务端，所以不需要想服务端注册自己( Eureka 集群部署时，设置为 true)
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://eureka8761:8761/eureka

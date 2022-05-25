@@ -1,0 +1,29 @@
+server:
+  port: 3722
+  servlet:
+    context-path: /turbine
+
+
+eureka:
+  client:
+    service-url:
+      # 注册中心地址
+      defaultZone: http://eureka8761:8761/eureka,http://eureka8762:8762/eureka
+    # 不将自己注册到 eureka
+    register-with-eureka: false
+    # 从 eureka 抓去注册的服务信息
+    fetch-registry: true
+
+
+turbine:
+#  aggregator:
+#    clusterConfig: CONSUMER
+  # 表示对那几个应用进行聚合，consumer 是应用名称(spring.application.name )
+  appConfig: consumer9001,consumer9002
+  clusterNameExpression: new String('default')
+#  instanceUrlSuffix:
+#    default: consumer/actuator/hystrix.stream
+
+spring:
+  application:
+    name: tuerbine3722
