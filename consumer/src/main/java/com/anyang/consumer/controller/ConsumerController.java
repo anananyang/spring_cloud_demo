@@ -5,12 +5,18 @@ import com.anyang.consumer.remote.provider.ProviderFeignClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@RefreshScope
 @Controller
 @RequestMapping("resources")
 public class ConsumerController {
@@ -19,12 +25,23 @@ public class ConsumerController {
     private RestTemplate restTemplate;
     @Autowired
     private ProviderFeignClient providerFeignClient;
+    @Value("${my.name}")
+    private String myName;
+
+
+    @RequestMapping("getMyName")
+    @ResponseBody
+    public Result<?> getMyName() {
+        Map<String, String> map = new HashMap<>();
+        map.put("myName", myName);
+        return Result.wrapSuccess(map);
+    }
 
     @RequestMapping("getAll")
     @ResponseBody
     public ResponseEntity<?> getResources() {
 //        return restTemplate.getForEntity("http://localhost:9000/provider/resources/getAll", Result.class);
-        return restTemplate.getForEntity("http://PROVIDER/provider/resources/getAll", Result.class);
+        return restTemplate.getForEntity("http://PROVIDER/resources/getAll", Result.class);
     }
 
 

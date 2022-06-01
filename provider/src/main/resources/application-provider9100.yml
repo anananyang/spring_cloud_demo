@@ -21,3 +21,12 @@ eureka:
 spring:
   application:
     name: provider
+  zipkin:
+    base-url: http://localhost:9410
+    sender:
+      type: web   # http 基于什么类型将打点数据发送给 zipkin-server
+
+  sleuth:
+    sampler:
+     # request 采样数量，默认是 0.1，因为分布式系统中书库量会很大。测试环境数据量少，设置为全部采样
+      probability: 1.0

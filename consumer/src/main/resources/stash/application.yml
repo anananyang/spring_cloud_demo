@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: 9001
 #  servlet:
 #    context-path: /consumer
 
@@ -12,7 +12,7 @@ eureka:
     lease-expiration-duration-in-seconds: 10
     # 服务实例以IP作为链接，而不是取机器名
     prefer-ip-address: true
-    instance-id: consumer-service-9002
+    instance-id: consumer-service-1
 
   client:
       service-url:
@@ -21,7 +21,7 @@ eureka:
 
 spring:
   application:
-    name: consumer9002
+    name: consumer
 
 feign:
   hystrix:
@@ -47,7 +47,6 @@ management:
   endpoints:
     web:
       exposure:
-        include: hystrix.stream
-
+        include: *
 
 

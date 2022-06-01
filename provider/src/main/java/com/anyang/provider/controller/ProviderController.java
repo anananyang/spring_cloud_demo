@@ -23,7 +23,7 @@ public class ProviderController {
         Map<String, Object> map = new HashMap<>();
         map.put("groupId", "com.anyang");
         map.put("artifactId", "my_springcloud_demo");
-        map.put("version", "1.0-SNAPSHOT");
+        map.put("version", "2.0-SNAPSHOT");
         return Result.wrapSuccess(map);
     }
 

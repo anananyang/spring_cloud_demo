@@ -19,7 +19,7 @@ public class RestConfig {
 
     @Bean
     public IRule iRule() {
-//        return new RoundRobinRule();  // 采用轮询方式进行负载均衡
-        return new WeightedResponseTimeRule();  // 采用平均响应时间进行权重计算的策略，在数据不足时会下采用轮询策略
+        return new RoundRobinRule();  // 采用轮询方式进行负载均衡
+//        return new WeightedResponseTimeRule();  // 采用平均响应时间进行权重计算的策略，在数据不足时会下采用轮询策略
     }
 }
